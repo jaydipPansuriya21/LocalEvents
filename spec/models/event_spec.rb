@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Event, type: :model do
     context "validations" do
         let!(:event) { build(:event) }
-        it 'can not vallid without title' do
+        it 'can not valid without title' do
             event.title = ""
             expect(event).not_to be_valid  
             # puts event.inspect
