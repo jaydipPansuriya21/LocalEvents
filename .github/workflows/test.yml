@@ -2,36 +2,36 @@ name: CI
 on: [push]
 jobs:
   build:
-  runs-on: ubuntu-latest
-  services: 
-    postgres:
-      image: postgres:11.6-alpine
-      env:
-        POSTGRES_PASSWORD: 121212
-        POSTGRES_USERNAME: jaydip 
-      ports:
-        - 5432:5432
-      options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    runs-on: ubuntu-latest
+    services: 
+      postgres:
+        image: postgres:11.6-alpine
+        env:
+          POSTGRES_PASSWORD: 121212
+          POSTGRES_USERNAME: jaydip 
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-  steps:
-    - uses: actions/checkout@v2
-    - uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.0.0 
-    - name: Install required apt packages
-      run: |
-        sudo apt-get -y install libpq-dev  
-    - name: start postgresql client  
-      run: sudo service postgresql start 
-    - name: Run bundle install
-      run: |
-          gem install bundler
-          bundle install
-    - name: create database    
-      env:
-        RAILS_ENV: test
-        DATABASE_PORT: 3306
-      run: |
-        bundle exec rails db:reset
-    - name: Run rspec
-      run: rspec .     
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.0 
+      - name: Install required apt packages
+        run: |
+          sudo apt-get -y install libpq-dev  
+      - name: start postgresql client  
+        run: sudo service postgresql start 
+      - name: Run bundle install
+        run: |
+            gem install bundler
+            bundle install
+      - name: create database    
+        env:
+          RAILS_ENV: test
+          DATABASE_PORT: 3306
+        run: |
+          bundle exec rails db:reset
+      - name: Run rspec
+        run: rspec .     
