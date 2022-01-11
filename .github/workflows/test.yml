@@ -27,8 +27,8 @@ jobs:
         sudo apt-get -y install libpq-dev  
     - name: start postgresql client  
       run: sudo service postgresql start 
-            - name: Run bundle install
-        run: |
+    - name: Run bundle install
+      run: |
           gem install bundler
           bundle install
     - name: create database    
