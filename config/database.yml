@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: LocalEvents_production
-  username: LocalEvents
-  password: <%= ENV['LOCALEVENTS_DATABASE_PASSWORD'] %>
+  username: jaydip
+  password: 121212
