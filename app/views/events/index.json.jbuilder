@@ -4,7 +4,7 @@ json.array! @events do |event|
     json.description event.description
     json.city event.city
     json.status event.status
-    json.upvote event.event_vote.upvote
-    json.downvote event.event_vote.downvote
-    json.viewcount event.event_vote.viewcount
+    json.upvote event.upvote
+    json.downvote event.downvote
+    json.viewcount event.viewcount
 end
