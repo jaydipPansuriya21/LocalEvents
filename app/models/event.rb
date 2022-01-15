@@ -1,10 +1,16 @@
-class Event < ApplicationRecord
+class Event < ApplicationRecord 
     has_one :event_vote, dependent: :destroy, autosave: true
     delegate *EventVote::METHODS, to: :event_vote
 
-    STATUS_OPTIONS = %w(Pending Rejected InReview)
+    STATUS_OPTIONS = %w(Pending Rejected Approved)
     validates :status, inclusion:  { in: STATUS_OPTIONS }  
     validates :title, presence: :true
+
+    scope :latest_event, -> (status_type)  { where(status: status_type).order(created_at: :desc) }
+    scope :oldest_event, -> (status_type)  { where(status: status_type).order(created_at: :asc) }
+   
+    # Ex:- scope :active, -> {where(:active => true)}
+   
     after_initialize do 
         self.build_event_vote if event_vote.nil?
     end
