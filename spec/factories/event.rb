@@ -1,9 +1,8 @@
 FactoryBot.define do
     factory :event do
         title { "Hello world" }
-        status { "InReview" }
+        status { "Pending" }
         description { "In this post, I’d like to record for willing readers and .." }
         city { "Gondal" }
-    end
     end    
 end 
