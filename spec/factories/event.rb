@@ -5,4 +5,5 @@ FactoryBot.define do
         description { "In this post, I’d like to record for willing readers and .." }
         city { "Gondal" }
     end
+    end    
 end 
