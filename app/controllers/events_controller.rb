@@ -1,6 +1,12 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.all
+    # need to add filter for location
+    # need to add filter for most upvote
+    if params[:latest]
+      @events = Event.latest_event(status_params)
+    else
+      @events = Event.oldest_event(status_params)
+    end
   end
 
   def show 
@@ -72,5 +78,8 @@ class EventsController < ApplicationController
     params.permit(:event_id, :upvote, :downvote)
   end
 
+  def status_params
+    params[:status_type] || Event::STATUS_OPTIONS
+  end
 
 end

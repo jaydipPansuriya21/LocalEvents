@@ -7,4 +7,5 @@ json.array! @events do |event|
     json.upvote event.upvote
     json.downvote event.downvote
     json.viewcount event.viewcount
+    json.created_at event.created_at
 end
