@@ -6,3 +6,4 @@ json.status @event.status
 json.upvote @event.upvote
 json.downvote @event.downvote
 json.viewcount @event.viewcount
+json.created_at @event.created_at
