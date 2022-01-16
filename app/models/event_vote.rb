@@ -13,3 +13,4 @@ class EventVote < ApplicationRecord
         end
     end
 end
+

@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
   def index
+    # need to add filter for location
+    # need to add filter for most upvote
     if params[:latest]
       @events = Event.latest_event(status_params)
     else

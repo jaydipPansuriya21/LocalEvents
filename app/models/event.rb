@@ -45,3 +45,4 @@ class Event < ApplicationRecord
         value
     end
 end
+
