@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_action :authenticate_user!
   def index
     # need to add filter for location
     # need to add filter for most upvote
