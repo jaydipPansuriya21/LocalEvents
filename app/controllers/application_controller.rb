@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::API
-    # before_action :set_default_response_format
+    include ActionController::HttpAuthentication::Basic::ControllerMethods
+    include ActionController::HttpAuthentication::Token::ControllerMethods
+    before_action :set_default_response_format
     respond_to :json
     before_action :authenticate_user
     def set_default_response_format
