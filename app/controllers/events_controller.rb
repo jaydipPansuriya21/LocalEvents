@@ -1,3 +1,4 @@
+require 'file_upload'
 class EventsController < ApplicationController
   before_action :authenticate_user!
   def index
@@ -50,6 +51,10 @@ class EventsController < ApplicationController
   end
 
   def add_vote
+    if params[:file]
+      file_service = AwsServices::FileServices.new(params[:file]) 
+      file_service.file_upload
+    end
     @event= Event.find(params[:event_id])
     @event.increment_votes(analytics_params)
     if @event.save
