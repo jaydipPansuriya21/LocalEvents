@@ -1,4 +1,4 @@
-require 'file_upload'
+require_relative '../services/amazon_service/file_upload.rb'
 class EventsController < ApplicationController
   before_action :authenticate_user!
   def index
@@ -52,7 +52,8 @@ class EventsController < ApplicationController
 
   def add_vote
     if params[:file]
-      file_service = AwsServices::FileServices.new(params[:file]) 
+      byebug
+      file_service = AmazonService::FileUpload.new(params[:file]) 
       file_service.file_upload
     end
     @event= Event.find(params[:event_id])
