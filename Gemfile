@@ -18,7 +18,8 @@ gem 'jbuilder', '~> 2.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-
+gem 'dotenv-rails', require: 'dotenv/rails-now'
+gem 'securerandom'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'aws-sdk-s3'
@@ -34,7 +35,6 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker', '~> 1.9.1'
 end
-
 group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

@@ -6,14 +6,18 @@ module AmazonService
         end
 
         def file_upload
-            Aws.config.update(region: 'sa-east-1')
-            s3_client = Aws::S3::Client.new(region: 'sa-east-1')
+            Aws.config.update(region: ENV[AWS_REGION])
+            s3_client = Aws::S3::Client.new(region: ENV[AWS_REGION])
             respone = s3_client.put_object(
-                bucket: 'sa-east-1',
-                key: "abc.rb", 
+                bucket: 'jaydip21',
+                key: get_name_for_imag, 
                 body: @file.read,
                 content_type: @file.content_type
             )
-        end          
+        end
+
+        def get_name_for_imag
+            SecureRandom.hex(4) 
+        end
     end
 end

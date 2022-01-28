@@ -52,7 +52,6 @@ class EventsController < ApplicationController
 
   def add_vote
     if params[:file]
-      byebug
       file_service = AmazonService::FileUpload.new(params[:file]) 
       file_service.file_upload
     end
