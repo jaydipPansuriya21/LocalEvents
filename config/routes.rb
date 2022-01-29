@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   scope :api, defaults: { format: :json } do
+    get 'events/get_image', to: 'events#get_image'
     get 'events', to: 'events#index'
     get 'events/event_analytics', to: 'events#event_analytics'
     post 'events', to: 'events#create'
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
     post 'events/add_view', to: 'events#add_view'
     post 'events/add_vote', to: 'events#add_vote'
     post 'events/remove_vote', to: 'events#remove_vote'
+    
     devise_for :users, controllers: { sessions: :sessions },
     path_names: { sign_in: :login }
     resource :users, only: [:show, :update]

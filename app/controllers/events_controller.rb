@@ -17,7 +17,6 @@ class EventsController < ApplicationController
 
   def create 
     @event = Event.create_event(event_params)
-    
     if @event.save
       render json: { notice: 'Event was successfully created' },  status: :ok
     else
@@ -51,10 +50,6 @@ class EventsController < ApplicationController
   end
 
   def add_vote
-    if params[:file]
-      file_service = AmazonService::FileUpload.new(params[:file]) 
-      file_service.file_upload
-    end
     @event= Event.find(params[:event_id])
     @event.increment_votes(analytics_params)
     if @event.save
