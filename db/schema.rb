@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_16_161252) do
+ActiveRecord::Schema.define(version: 2022_01_29_052557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(version: 2022_01_16_161252) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "images", force: :cascade do |t|
+    t.string "images_path"
+    t.string "picture_type", null: false
+    t.bigint "picture_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["picture_type", "picture_id"], name: "index_images_on_picture"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email", default: "", null: false
@@ -47,4 +56,16 @@ ActiveRecord::Schema.define(version: 2022_01_16_161252) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vote_infos", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.boolean "vote_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_vote_infos_on_event_id"
+    t.index ["user_id"], name: "index_vote_infos_on_user_id"
+  end
+
+  add_foreign_key "vote_infos", "events"
+  add_foreign_key "vote_infos", "users"
 end

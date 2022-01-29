@@ -1,5 +1,7 @@
 class Event < ApplicationRecord 
     has_one :event_vote, dependent: :destroy, autosave: true
+    has_many :vote_infos
+    has_many :images, as: :pictures
     delegate *EventVote::METHODS, to: :event_vote
 
     STATUS_OPTIONS = %w(Pending Rejected Approved)
