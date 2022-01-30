@@ -8,12 +8,14 @@ module AmazonService
 
         def file_upload
             s3_client = get_client
+            image_name = get_name_for_imag
             respone = s3_client.put_object(
                 bucket: ENV['S3_BUCKET'],
-                key: get_name_for_imag, 
+                key: image_name, 
                 body: @file.read,
                 content_type: @file.content_type
             )
+            image_name
         end
         
         def file_delete(image_name)
