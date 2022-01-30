@@ -8,8 +8,7 @@ Rails.application.routes.draw do
     put 'events', to: 'events#update'
     get 'events/:id', to: 'events#show'
     post 'events/add_view', to: 'events#add_view'
-    post 'events/add_vote', to: 'events#add_vote'
-    post 'events/remove_vote', to: 'events#remove_vote'
+    post 'events/update_vote', to: 'events#update_vote'
     post 'images/upload_image', to: 'images#upload_image'
     post 'images/remove_image', to: 'images#remove_image'
     

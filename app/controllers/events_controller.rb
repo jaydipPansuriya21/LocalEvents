@@ -49,9 +49,9 @@ class EventsController < ApplicationController
     end     
   end
 
-  def add_vote
+  def update_vote
     @event= Event.find(params[:event_id])
-    @event.increment_votes(analytics_params)
+    @event.modify_vote(params)
     if @event.save
       render json: { notice: 'votes were added successfully' },  status: :ok
     else
@@ -59,24 +59,11 @@ class EventsController < ApplicationController
     end  
   end
 
-  def remove_vote
-    @event= Event.find(params[:event_id])
-    @event.decrement_votes(analytics_params) 
-    if @event.save
-      render json: { notice: 'votes were removed successfully' },  status: :ok
-    else
-      render json: {error: @event.errors }, status: :unprocessable_entity 
-    end  
-  end
 
   private
 
   def event_params
     params.permit(:id, :title, :city, :description, :status)
-  end
-
-  def analytics_params
-    params.permit(:event_id, :upvote, :downvote)
   end
 
   def status_params
