@@ -3,6 +3,7 @@ module AmazonService
     class FileUpload
         def initialize(file)
             @file = file
+            @hexvalue = 4
             Aws.config.update(region: ENV['AWS_REGION'])
         end
 
@@ -30,11 +31,17 @@ module AmazonService
         private
 
         def get_name_for_imag
-            SecureRandom.hex(4) 
+            image_name = SecureRandom.hex(@hexvalue) + "." + get_extention 
+            image_name
         end
 
         def get_client
             Aws::S3::Client.new(region: ENV['AWS_REGION'])
+        end
+
+        def get_extention 
+            temp_list = @file.original_filename.split('.')
+            temp_list.last
         end
 
     end
