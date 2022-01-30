@@ -3,13 +3,13 @@ module AmazonService
     class FileUpload
         def initialize(file)
             @file = file
+            Aws.config.update(region: ENV['AWS_REGION'])
         end
 
         def file_upload
-            Aws.config.update(region: ENV['AWS_REGION'])
-            s3_client = Aws::S3::Client.new(region: ENV['AWS_REGION'])
+            s3_client = get_client
             respone = s3_client.put_object(
-                bucket: 'jaydip21',
+                bucket: ENV['S3_BUCKET'],
                 key: get_name_for_imag, 
                 body: @file.read,
                 content_type: @file.content_type
@@ -17,14 +17,23 @@ module AmazonService
         end
         
         def file_delete(image_name)
-            s3 = Aws::S3::Resource.new(region: 'sa-east-1')
-            obj = s3.bucket('jaydip21').object(name)
-            obj.delete
-            true
+            s3_client = get_client
+            respone = s3_client.delete_object(
+                bucket: ENV['S3_BUCKET'],
+                key: image_name 
+            )
         end
+
+        
+        private
 
         def get_name_for_imag
             SecureRandom.hex(4) 
         end
+
+        def get_client
+            Aws::S3::Client.new(region: ENV['AWS_REGION'])
+        end
+
     end
 end
