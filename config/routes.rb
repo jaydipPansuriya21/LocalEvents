@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     post 'events/add_view', to: 'events#add_view'
     post 'events/add_vote', to: 'events#add_vote'
     post 'events/remove_vote', to: 'events#remove_vote'
+    post 'images/upload_image', to: 'images#upload_image'
+    post 'images/remove_image', to: 'images#remove_image'
     
     devise_for :users, controllers: { sessions: :sessions },
     path_names: { sign_in: :login }
