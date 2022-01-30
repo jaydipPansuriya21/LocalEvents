@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     post 'events/update_vote', to: 'events#update_vote'
     post 'images/upload_image', to: 'images#upload_image'
     post 'images/remove_image', to: 'images#remove_image'
+    post 'vote_infos/user_vote_type', to: 'vote_infos#user_vote_type'
     
     devise_for :users, controllers: { sessions: :sessions },
     path_names: { sign_in: :login }
