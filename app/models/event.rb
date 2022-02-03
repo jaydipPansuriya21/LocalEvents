@@ -12,7 +12,8 @@ class Event < ApplicationRecord
 
     scope :latest_event, -> (status_type)  { where(status: status_type).order(created_at: :desc) }
     scope :oldest_event, -> (status_type)  { where(status: status_type).order(created_at: :asc) }
-   
+    scope :location_wise -> (status_type, location) { where(status: status_type, location: location).order(created_at: :desc) }
+    scope :
     # Ex:- scope :active, -> {where(:active => true)}
    
     after_initialize do 
@@ -23,6 +24,13 @@ class Event < ApplicationRecord
         event = Event.new(attributes)
         event.status = "Pending"
         event
+    end
+
+    def get_event_by_filter_type(params)
+        filter_hash = {}
+        filter_hash[:location] = params[:location] if params[:location]
+        filter_hash[:status] = params[:status] if params[:status]
+        
     end
 
     def get_event_analytics

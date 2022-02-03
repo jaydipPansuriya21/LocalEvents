@@ -12,9 +12,9 @@ class Image < ApplicationRecord
 
   def get_object(id, type)
     if type == "event"
-      return Event.find(id)
+      return Event.find_id(id: id)
     elsif type == 'user'
-      return User.find(id)
+      return User.find_id(id: id)
     end
   end
 end
