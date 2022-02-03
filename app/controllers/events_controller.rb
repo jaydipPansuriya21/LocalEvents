@@ -8,7 +8,6 @@ class EventsController < ApplicationController
       @events = Event.latest_event(params)
     elsif params[:location]
     elsif params[:view]
-
       @events = Event.oldest_event(status_params)
     end
   end
@@ -19,21 +18,37 @@ class EventsController < ApplicationController
 
   def create 
     @event = Event.create_event(event_params)
-    if @event.save
-      render json: { notice: 'Event was successfully created' },  status: :ok
+    action_type = "created"
+    saved = @event.save
+    if saved 
+      status_code = :ok 
     else
-      render json: {error: @event.errors }, status: :unprocessable_entity 
+      status_code = :unprocessable_entity
     end
+    render :message, status: status_code
+    # if @event.save
+    #   render json: { notice: 'Event was successfully created' },  status: :ok
+    # else
+    #   render json: {error: @event.errors }, status: :unprocessable_entity 
+    # end
   end
 
   def update 
     @event= Event.find_by(id: params[:id])
+    action_type = "updated"
     @event.assign_attributes(event_params)
-    if @event.save
-      render json: { notice: 'Event was successfully updated' },  status: :ok
+    saved = @event.save
+    if saved 
+      status_code = :ok 
     else
-      render json: {error: @event.errors }, status: :unprocessable_entity 
-    end  
+      status_code = :unprocessable_entity
+    end
+    render :message, status: status_code
+    # if @event.save
+    #   render json: { notice: 'Event was successfully updated' },  status: :ok
+    # else
+    #   render json: {error: @event.errors }, status: :unprocessable_entity 
+    # end  
   end
 
   def event_analytics
@@ -43,22 +58,38 @@ class EventsController < ApplicationController
 
   def add_view
     @event= Event.find_by(id: params[:event_id])
+    action_type = "view added"
     @event.increment_view
-    if @event.save
-      render json: { notice: 'view was added successfully' },  status: :ok
+    saved = @event.save
+    if saved 
+      status_code = :ok 
     else
-      render json: {error: @event.errors }, status: :unprocessable_entity 
-    end     
+      status_code = :unprocessable_entity
+    end
+    render :message, status: status_code
+    # if @event.save
+    #   render json: { notice: 'view was added successfully' },  status: :ok
+    # else
+    #   render json: {error: @event.errors }, status: :unprocessable_entity 
+    # end     
   end
 
   def update_vote
     @event= Event.find_by(id: params[:event_id])
+    action_type = "vote added"
     @event.modify_vote(params)
-    if @event.save
-      render json: { notice: 'votes were added successfully' },  status: :ok
+    saved = @event.save
+    if saved 
+      status_code = :ok 
     else
-      render json: {error: @event.errors }, status: :unprocessable_entity 
-    end  
+      status_code = :unprocessable_entity
+    end
+    render :message, status: status_code
+    # if @event.save
+    #   render json: { notice: 'votes were added successfully' },  status: :ok
+    # else
+    #   render json: {error: @event.errors }, status: :unprocessable_entity 
+    # end  
   end
 
 
