@@ -42,6 +42,12 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = false
+  # config.before(:context) { puts 'Before :all' }
+  # config.after(:context) { puts 'After :all' }
+  # config.before(:example) { puts 'Before :example' }
+  # config.after(:example) { puts 'After :example' }
+  # config.before(:suite) { puts 'Before :suite' }
+  # config.after(:suite) { puts 'After :suite' }
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
