@@ -10,10 +10,8 @@ class Event < ApplicationRecord
     validates :status, inclusion:  { in: STATUS_OPTIONS }  
     validates :title, presence: :true
 
-    scope :latest_event, -> (status_type)  { where(status: status_type).order(created_at: :desc) }
-    scope :oldest_event, -> (status_type)  { where(status: status_type).order(created_at: :asc) }
-    scope :location_wise -> (status_type, location) { where(status: status_type, location: location).order(created_at: :desc) }
-    scope :
+    scope :lates_with_filter, -> (filter_hash)  { where(filter_hash).order(created_at: :desc) }
+    scope :oldest_with_filter, -> (filter_hash)  { where(filter_hash).order(created_at: :asc) }
     # Ex:- scope :active, -> {where(:active => true)}
    
     after_initialize do 
@@ -30,7 +28,15 @@ class Event < ApplicationRecord
         filter_hash = {}
         filter_hash[:location] = params[:location] if params[:location]
         filter_hash[:status] = params[:status] if params[:status]
+        if params[:order] == "latest"
+            lates_with_filter(filter_hash)     
+        elsif params[:order] == "oldest"
+            oldest_with_filter(filter_hash)
+        elsif params[:order] == "most_viewed"
         
+        elsif params[:order] == "most_upvoted"
+
+        end
     end
 
     def get_event_analytics
