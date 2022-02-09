@@ -2,14 +2,7 @@ require_relative '../services/amazon_service/file_upload.rb'
 class EventsController < ApplicationController
   before_action :authenticate_user!
   def index
-    # need to add filter for location
-    # need to add filter for most upvote
-    if params[:latest]
-      @events = Event.latest_event(params)
-    elsif params[:location]
-    elsif params[:view]
-      @events = Event.oldest_event(status_params)
-    end
+    @events = Event.get_event_by_filter_type(params)
   end
 
   def show 
@@ -18,14 +11,14 @@ class EventsController < ApplicationController
 
   def create 
     @event = Event.create_event(event_params)
-    action_type = "created"
-    saved = @event.save
-    if saved 
+    @action_type = "created"
+    @saved = @event.save
+    if @saved 
       status_code = :ok 
     else
       status_code = :unprocessable_entity
     end
-    render :message, status: status_code
+    render :messages, status: status_code
     # if @event.save
     #   render json: { notice: 'Event was successfully created' },  status: :ok
     # else
@@ -35,15 +28,15 @@ class EventsController < ApplicationController
 
   def update 
     @event= Event.find_by(id: params[:id])
-    action_type = "updated"
+    @action_type = "updated"
     @event.assign_attributes(event_params)
-    saved = @event.save
-    if saved 
+    @saved = @event.save
+    if @saved 
       status_code = :ok 
     else
       status_code = :unprocessable_entity
     end
-    render :message, status: status_code
+    render :messages, status: status_code
     # if @event.save
     #   render json: { notice: 'Event was successfully updated' },  status: :ok
     # else
@@ -66,7 +59,7 @@ class EventsController < ApplicationController
     else
       status_code = :unprocessable_entity
     end
-    render :message, status: status_code
+    render :messages, status: status_code
     # if @event.save
     #   render json: { notice: 'view was added successfully' },  status: :ok
     # else
@@ -84,7 +77,7 @@ class EventsController < ApplicationController
     else
       status_code = :unprocessable_entity
     end
-    render :message, status: status_code
+    render :messages, status: status_code
     # if @event.save
     #   render json: { notice: 'votes were added successfully' },  status: :ok
     # else

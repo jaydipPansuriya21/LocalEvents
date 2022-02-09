@@ -1,6 +1,6 @@
-message_text = "Event #{action_type} successfully"
+message_text = "Event #{@action_type} successfully"
 
-if saved
+if @saved
     json.message message_text
 else
     json.errors @event.errors
