@@ -1,6 +1,6 @@
 class ImagesController <  ApplicationController
     def upload_image
-        if params[:image]
+        if params[:image_name]
             file_service = get_file_service_object(params[:image_name])
             image_name = file_service.file_upload
             @image = Image.new(images_path: image_name)

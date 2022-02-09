@@ -5,7 +5,6 @@ class Event < ApplicationRecord
     # it will go for picture_id & picture_type in images table     
     has_many :images, as: :picture, dependent: :destroy 
     delegate *EventVote::METHODS, to: :event_vote
-    delegate 'images', to: :image
     STATUS_OPTIONS = %w(Pending Rejected Approved)
     validates :status, inclusion:  { in: STATUS_OPTIONS }  
     validates :title, presence: :true
