@@ -19,11 +19,6 @@ class EventsController < ApplicationController
       status_code = :unprocessable_entity
     end
     render :messages, status: status_code
-    # if @event.save
-    #   render json: { notice: 'Event was successfully created' },  status: :ok
-    # else
-    #   render json: {error: @event.errors }, status: :unprocessable_entity 
-    # end
   end
 
   def update 
@@ -37,11 +32,6 @@ class EventsController < ApplicationController
       status_code = :unprocessable_entity
     end
     render :messages, status: status_code
-    # if @event.save
-    #   render json: { notice: 'Event was successfully updated' },  status: :ok
-    # else
-    #   render json: {error: @event.errors }, status: :unprocessable_entity 
-    # end  
   end
 
   def event_analytics
@@ -59,12 +49,7 @@ class EventsController < ApplicationController
     else
       status_code = :unprocessable_entity
     end
-    render :messages, status: status_code
-    # if @event.save
-    #   render json: { notice: 'view was added successfully' },  status: :ok
-    # else
-    #   render json: {error: @event.errors }, status: :unprocessable_entity 
-    # end     
+    render :messages, status: status_code   
   end
 
   def update_vote
@@ -77,12 +62,7 @@ class EventsController < ApplicationController
     else
       status_code = :unprocessable_entity
     end
-    render :messages, status: status_code
-    # if @event.save
-    #   render json: { notice: 'votes were added successfully' },  status: :ok
-    # else
-    #   render json: {error: @event.errors }, status: :unprocessable_entity 
-    # end  
+    render :messages, status: status_code 
   end
 
 
