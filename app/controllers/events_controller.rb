@@ -51,10 +51,10 @@ class EventsController < ApplicationController
 
   def add_view
     @event= Event.find_by(id: params[:event_id])
-    action_type = "view added"
+    @action_type = "view added"
     @event.increment_view
-    saved = @event.save
-    if saved 
+    @saved = @event.save
+    if @saved 
       status_code = :ok 
     else
       status_code = :unprocessable_entity
@@ -69,10 +69,10 @@ class EventsController < ApplicationController
 
   def update_vote
     @event= Event.find_by(id: params[:event_id])
-    action_type = "vote added"
+    @action_type = "vote added"
     @event.modify_vote(params)
-    saved = @event.save
-    if saved 
+    @saved = @event.save
+    if @saved 
       status_code = :ok 
     else
       status_code = :unprocessable_entity
