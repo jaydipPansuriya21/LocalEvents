@@ -24,19 +24,31 @@ class Event < ApplicationRecord
         event
     end
 
-    def get_event_by_filter_type(params)
+    def self.get_event_by_filter_type(params)
+        # filter hash is used in where condition 
         filter_hash = {}
-        filter_hash[:location] = params[:location] if params[:location]
+        filter_hash[:city] = params[:city] if params[:city]
         filter_hash[:status] = params[:status] if params[:status]
         if params[:order] == "latest"
-            lates_with_filter(filter_hash)     
+            data =  fetch_record(filter_hash, :desc)     
         elsif params[:order] == "oldest"
-            oldest_with_filter(filter_hash)
+            data = fetch_record(filter_hash, :asc) 
         elsif params[:order] == "most_viewed"
         
         elsif params[:order] == "most_upvoted"
 
         end
+        data
+    end
+
+    def self.fetch_record(filter_hash, order)
+        if filter_hash.size.positive?
+            # byebug
+            data = Event.where(filter_hash).order(created_at: order)
+        else
+            data = Event.all.order(created_at: order)
+        end
+        data
     end
 
     def get_event_analytics
