@@ -1,8 +1,10 @@
 require 'aws-sdk-s3'
 module AmazonService
     class FileUpload
-        def initialize(file)
-            @file = file
+        def initialize(file_path)
+            @file = File.open(file_path)
+            @content_type = get_content_type(file_path)
+            @extension = File.extname(file_path)  
             @hexvalue = 4
             Aws.config.update(region: ENV['AWS_REGION'])
         end
@@ -14,7 +16,7 @@ module AmazonService
                 bucket: ENV['S3_BUCKET'],
                 key: image_name, 
                 body: @file.read,
-                content_type: @file.content_type
+                content_type: @content_type
             )
             image_name
         end
@@ -40,9 +42,12 @@ module AmazonService
         end
 
         def get_extention 
-            temp_list = @file.original_filename.split('.')
-            temp_list.last
+            @extension
         end
+
+        def get_content_type(path) 
+            FileMagic.new(FileMagic::MAGIC_MIME).file(path)
+        end 
 
     end
 end
