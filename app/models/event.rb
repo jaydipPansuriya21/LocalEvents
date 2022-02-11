@@ -115,6 +115,6 @@ class Event < ApplicationRecord
         end
         
         # ImageUploadJob.perform_later
-    end        
+    end       
 end
 
