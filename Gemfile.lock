@@ -199,6 +199,7 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.4)
+    ruby-filemagic (0.7.3)
     securerandom (0.1.1)
     spring (4.0.0)
     sprockets (4.0.2)
@@ -243,6 +244,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 6.1.4, >= 6.1.4.1)
   rspec-rails (~> 3.5)
+  ruby-filemagic (~> 0.7.3)
   securerandom
   spring
   tzinfo-data
