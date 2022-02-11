@@ -106,5 +106,15 @@ class Event < ApplicationRecord
     def get_vote_info(data) 
         VoteInfo.find_or_initialize_by(user_id: data[:user_id].to_i, event_id: data[:event_id].to_i)    
     end
+
+    def self.perform_job 
+        ApplicationJob.perform_later
+
+        1000.times do |i|
+            puts i
+        end
+        
+        # ImageUploadJob.perform_later
+    end        
 end
 
