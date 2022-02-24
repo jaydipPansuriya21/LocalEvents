@@ -27,8 +27,11 @@ jobs:
         run: |
             gem install bundler
             bundle install
+      - name: Start Postgres
+        run: sudo service postgresql start
       - name: create database    
         run: |
-          bundle exec rails db:reset
+          bundle exec rails db:create RAILS_ENV=test
+          bundle exec rails db:migrate RAILS_ENV=test
       - name: Run rspec
         run: rspec .     
