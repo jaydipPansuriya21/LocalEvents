@@ -28,7 +28,9 @@ jobs:
             gem install bundler
             bundle install
       - name: Start Postgres
-        run: sudo service postgresql start
+        run: |
+            rm /usr/local/var/postgres/postmaster.pid
+            sudo service postgresql start
       - name: create database    
         run: |
           bundle exec rails db:create RAILS_ENV=test
