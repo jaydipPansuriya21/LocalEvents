@@ -28,9 +28,6 @@ jobs:
             gem install bundler
             bundle install
       - name: create database    
-        env:
-          RAILS_ENV: test
-          DATABASE_PORT: 5432
         run: |
           bundle exec rails db:reset
       - name: Run rspec
