@@ -8,7 +8,7 @@ jobs:
         image: postgres:11.6-alpine
         env:
           POSTGRES_PASSWORD: 121212
-          POSTGRES_USERNAME: jaydip 
+          POSTGRES_USER: jaydip 
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -30,7 +30,7 @@ jobs:
       - name: create database    
         env:
           RAILS_ENV: test
-          DATABASE_PORT: 3306
+          DATABASE_PORT: 5432
         run: |
           bundle exec rails db:reset
       - name: Run rspec
